@@ -35,8 +35,8 @@ from google.cloud.vision import types
 from PIL import Image
 
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
 
 from settings import bot_id, bot_token, ngrok_url, webhook_id, webhook_name
 
