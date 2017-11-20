@@ -38,7 +38,7 @@ from PIL import Image
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
 
-from settings import bot_id, bot_token, ngrok_url, webhook_id, webhook_name
+from settings import bot_id, bot_token, ngrok_url, webhook_id, webhook_name, log_file
 
 image_is_in_Spark = False
 detect_macs = True
@@ -524,7 +524,11 @@ def detect_mac_addresses(path):
 
 ################################################################################
 
-
+#logging usage
+def log_usage(filename, content):
+    f = open(filename, 'a')
+    f.write(content)
+    f.close()
 
 
 # Flask used as listener for webhooks from Spark
@@ -542,6 +546,8 @@ def listener():
 
     #print ("Data from webhook:")
     #print (json.dumps(data, indent=4))
+
+    log_usage(log_file,json.dumps(data, indent=4))
 
     #print ("\nHeaders from webhook:")
     #print (headers)
