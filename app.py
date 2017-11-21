@@ -568,7 +568,7 @@ def listener():
             for item in data['data']['files']:
 
                 #log the usage
-                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | File")
+                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | File\n")
 
                 #retrive the file from spark
                 response = requests.request("GET", item, headers=spark_headers)
@@ -642,7 +642,7 @@ def listener():
                 for url in urls:
 
                     #log the usage
-                    log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Url")
+                    log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Url\n")
 
                     #check if URL is an image
                     response = requests.head(url)
@@ -706,7 +706,7 @@ def listener():
             elif ('help' in str.lower(message['text'])) or (message['text'] == '?'):
                 post_message_to_room(spark_headers,roomID,help_msg)
                 #log the usage
-                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Help")
+                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Help\n")
 
     return "OK"
 
