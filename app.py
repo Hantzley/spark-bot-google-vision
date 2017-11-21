@@ -33,6 +33,7 @@ import re
 from google.cloud import vision
 from google.cloud.vision import types
 from PIL import Image
+import datetime
 
 
 #import logging
@@ -547,7 +548,7 @@ def listener():
     #print ("Data from webhook:")
     #print (json.dumps(data, indent=4))
 
-    log_usage(log_file,json.dumps(data, indent=4))
+    #log_usage(log_file,json.dumps(data, indent=4))
 
     #print ("\nHeaders from webhook:")
     #print (headers)
@@ -565,6 +566,11 @@ def listener():
 
         if 'files' in data['data']:
             for item in data['data']['files']:
+
+                #log the usage
+                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | File")
+
+                #retrive the file from spark
                 response = requests.request("GET", item, headers=spark_headers)
                 if response.status_code == 200:
                     imgHeaders = response.headers
@@ -634,6 +640,10 @@ def listener():
 
             if len(urls) > 0:
                 for url in urls:
+
+                    #log the usage
+                    log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Url")
+
                     #check if URL is an image
                     response = requests.head(url)
                     #print (response.headers.get('content-type'))
@@ -695,6 +705,8 @@ def listener():
 
             elif ('help' in str.lower(message['text'])) or (message['text'] == '?'):
                 post_message_to_room(spark_headers,roomID,help_msg)
+                #log the usage
+                log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Help")
 
     return "OK"
 
