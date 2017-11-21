@@ -2,6 +2,7 @@
 settings.py
 ngrok
 *.out
+*.txt
 
 # image files
 *.jpg
