@@ -1,15 +1,15 @@
 #
 #   Hantzley Tauckoor (htauckoo@cisco.com)
-#       October 2017
+#       February 2019
 #
-#       This sample Spark bot application uses ngrok to facilitate a webhook to Spark
+#       This sample WebEx Teams bot application uses ngrok to facilitate a webhook to WebEx Teams
 #
 #
 #   REQUIREMENTS:
 #       Flask python module
 #       ngrok - https://ngrok.com/
-#       Spark account with Bot created
-#       Spark webhook created with bot token
+#       WebEx Teams account with Bot created
+#       WebEx Teams webhook created with bot token
 #       settings.py file, you can modify and rename settings_template.py
 #       Google Cloud account and Vision API access
 #
@@ -39,11 +39,12 @@ import datetime
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
 
-from settings import bot_id, bot_token, ngrok_url, webhook_id, webhook_name, log_file
+from settings import bot_id, bot_token, ngrok_url, webhook_id, webhook_name, webhook_url, log_file, bot_actor_id
 
 image_is_in_Spark = False
 detect_macs = True
 filename = None
+use_ngrok = False
 
 base_img_width=1024
 
@@ -52,14 +53,13 @@ signature = "Hantzley Tauckoor - [\[Email\]](mailto:htauckoo@cisco.com) \
     [\[@hantzley\]](http://twitter.com/hantzley) \
     [\[GitHub\]](http://github.com/hantzley)"
 
-project_info = "Liked this Bot? Want to contribute or create your own? See \
-    the project on [GitHub](https://github.com/Hantzley/spark-bot-google-vision)"
+project_info = "Liked this Bot? Want to contribute or create your own? See the project on [GitHub](https://github.com/Hantzley/spark-bot-google-vision)"
 
 help_msg = "Hey there! The GoogleVision Bot is easy to use. \
-    Simply post an image to the Spark room, and the Bot will tell you what it sees. \
+    Simply post an image to the WebEx Teams room, and the Bot will tell you what it sees. \
     You can also post the URL of an image. \
     \n\nE.g. **_@GoogleVision image\-file_** or **_@GoogleVision_** **_image\-url_** \
-    \n\nIf you are in a 1-1 Spark room with the Bot, you can post the image or image \
+    \n\nIf you are in a 1-1 WebEx Teams room with the Bot, you can post the image or image \
     URL directly. Give it a try and send me your feedback.\n\nThank you,\n\n" + signature
 
 def resize_image (filename, base_img_width):
@@ -92,7 +92,7 @@ def get_ngrok_tunnels(ngrok_url):
         'public_https_url' : tunnels['tunnels'][1]['public_url']
     }
 
-# set spark headers
+# set WebEx Teams headers
 def set_headers(access_token):
     accessToken_hdr = 'Bearer ' + access_token
     spark_header = {
@@ -554,7 +554,7 @@ def listener():
     #print (headers)
 
     # If the poster of the message was NOT the bot itself
-    if data['actorId'] != bot_id:
+    if data['actorId'] != bot_actor_id:
         spark_headers = set_headers(bot_token)
 
         # Get more specific information about the message that triggered the webhook
@@ -628,8 +628,7 @@ def listener():
 
                     else:
                         #print(filename + " is not an image")
-                        post_message_to_room(spark_headers,roomID,"Ahoy! Thanks for sending me your \
-                            file. However, I only analyze images.")
+                        post_message_to_room(spark_headers,roomID,"Ahoy! Thanks for sending me your file. However, I only analyze images.")
 
         else:
             #print ("No files posted...")
@@ -700,26 +699,33 @@ def listener():
                         post_message_to_room(spark_headers,roomID,project_info)
                     else:
                         #print(url + " is not an image")
-                        post_message_to_room(spark_headers,roomID,"Ahoy! Thanks for sending me your \
-                            url. However, I only analyze images.")
+                        post_message_to_room(spark_headers,roomID,"Ahoy! Thanks for sending me your url. However, I only analyze images.")
 
             elif ('help' in str.lower(message['text'])) or (message['text'] == '?'):
                 post_message_to_room(spark_headers,roomID,help_msg)
                 #log the usage
                 log_usage(log_file,str(datetime.datetime.now()) + " | " + data['data']['personEmail'] + " | Help\n")
 
-    return "OK"
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 # Runs the listener
 if __name__ == '__main__':
-    #get ngrok tunnel details and update webhook
-    print ("Updating webhook with ngrok tunnel details")
+
+    public_url = ""
+
+    if use_ngrok:
+        #get ngrok tunnel details and update webhook
+        print ("Updating webhook with ngrok tunnel details")
+        ngrok_tunnels = get_ngrok_tunnels(ngrok_url)
+        public_url = ngrok_tunnels['public_http_url'] # to use https, use the 'public_https_url' key instead
+    else:
+        public_url = webhook_url
+
     headers = set_headers(bot_token)
-    ngrok_tunnels = get_ngrok_tunnels(ngrok_url)
-    public_url = ngrok_tunnels['public_http_url'] # to use https, use the 'public_https_url' key instead
+    
     print ("Webhook update status code: ", update_webhook(headers, webhook_name, webhook_id, public_url))
 
     #launching main application
-    print ("Launching spark bot application")
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    print ("Launching WebEx Teams bot application")
+    app.run(host='0.0.0.0', port=80, debug=True)
