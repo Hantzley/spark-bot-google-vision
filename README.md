@@ -1,6 +1,6 @@
-# WebEx Teams Bot with Google Vision API integration
+# Webex Teams Bot with Google Vision API integration
 
-This WebEx Teams Bot uses Google Vision to analyze images sent to it. You can either send a URL of an image or you can post the image itself into the WebEx Teams room.
+This Webex Teams Bot uses Google Vision to analyze images sent to it. You can either send a URL of an image or you can post the image itself into the WebEx Teams room.
 
 
 
@@ -14,8 +14,8 @@ These instructions will get you a copy of the project up and running on your loc
 * [ngrok](http://ngrok.com) - Tunneling utility that exposes local servers behind NATs and firewalls to the public internet over secure tunnels.
 * [Python 3.x](http://www.python.org) - Python interpreter
 * [Flask](http://flask.pocoo.org/)  - Flask is a microframework for Python based on Werkzeug and Jinja 2
-* WebEx Teams Bot - create a WebEx Teams bot. See https://developer.ciscospark.com/bots.html
-* WebEx Teams webhook - create a webhook using your Bot's token. See https://developer.ciscospark.com/webhooks-explained.html
+* Webex Teams Bot - create a WebEx Teams bot. See https://developer.ciscospark.com/bots.html
+* Webex Teams webhook - create a webhook using your Bot's token. See https://developer.ciscospark.com/webhooks-explained.html
 * Google Cloud Vision API - See https://cloud.google.com/vision/docs
 
 
