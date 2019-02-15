@@ -49,4 +49,4 @@ On WebEx Teams, create a 1-1 room with the WebEx Teams Bot, and start posting im
 
 ## Authors
 
-* **Hantzley Tauckoor** - [linkedin](http://linkedin.com/in/hantzley) [@hantzley](http://twitter.com/hantzley)
+* **Hantzley Tauckoor** - [LinkedIn](http://linkedin.com/in/hantzley) [@hantzley](http://twitter.com/hantzley)
