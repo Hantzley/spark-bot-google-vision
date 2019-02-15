@@ -2,14 +2,14 @@
 #   Hantzley Tauckoor (htauckoo@cisco.com)
 #       February 2019
 #
-#       This sample WebEx Teams bot application uses ngrok to facilitate a webhook to WebEx Teams
+#       This sample Webex Teams bot application uses ngrok to facilitate a webhook to Webex Teams
 #
 #
 #   REQUIREMENTS:
 #       Flask python module
 #       ngrok - https://ngrok.com/
-#       WebEx Teams account with Bot created
-#       WebEx Teams webhook created with bot token
+#       Webex Teams account with Bot created
+#       Webex Teams webhook created with bot token
 #       settings.py file, you can modify and rename settings_template.py
 #       Google Cloud account and Vision API access
 #
