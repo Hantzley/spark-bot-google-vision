@@ -1,6 +1,6 @@
 # Webex Teams Bot with Google Vision API integration
 
-This Webex Teams Bot uses Google Vision to analyze images sent to it. You can either send a URL of an image or you can post the image itself into the WebEx Teams room.
+This Webex Teams Bot uses Google Vision to analyze images sent to it. You can either send a URL of an image or you can post the image itself to the bot.
 
 
 
