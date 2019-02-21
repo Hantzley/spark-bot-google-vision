@@ -729,3 +729,5 @@ if __name__ == '__main__':
     #launching main application
     print ("Launching WebEx Teams bot application")
     app.run(host='0.0.0.0', port=80, debug=True)
+    
+    #port 80 is the default weebhook port
