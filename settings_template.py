@@ -11,6 +11,7 @@ bot_actor_id = "your_bot_email_id"
 # see https://developer.ciscospark.com/webhooks-explained.html
 webhook_id = "your_webhook_id"
 webhook_name = "your_webhook_name"
+webhook_url = "your_webhook_url"
 
 # Download ngrok from http://ngrok.com or use the copy on this repository
 # Launch ngrok, e.g., ./ngrok http 8080
