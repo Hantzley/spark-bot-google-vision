@@ -1,7 +1,8 @@
 # Update variables below and rename file to settings.py
 
-# Create a Spark Bot,
-# see https://developer.ciscospark.com/bots.html
+# Create a Spark Bot, see
+# https://developer.webex.com/docs/bots
+# https://developer.webex.com/docs/api/guides/webhooks
 bot_token = "your Bot token"
 bot_id = "your_bot_id"
 bot_actor_id = "your_bot_email_id"
