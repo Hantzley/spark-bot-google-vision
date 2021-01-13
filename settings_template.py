@@ -18,5 +18,4 @@ ngrok_url = "http://localhost:4040/api/tunnels"
 
 
 #log file
-
 log_file = "your_log_file"
